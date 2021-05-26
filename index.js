@@ -27,7 +27,7 @@ app.post("/payload", (req, res) => {
         "https://github.com/Morbotu/drone-PWS"
       )
       .setColor(0xff0000);
-    if (req.body.hasOwnProperty("check_run")) {
+    if (req.header("X-GitHub-Event") == "check_run") {
       message
         .setTitle("Check_run")
         .setDescription(
@@ -39,14 +39,15 @@ app.post("/payload", (req, res) => {
 
     }
 
-    if (req.body.hasOwnProperty("commits")) {
+    if (req.header("X-GitHub-Event") == "push") {
       let description = "";
 
       for (let commit of req.body.commits) {
         description +=
           `Committer: ${commit.committer.name}\n` +
           `Message: ${commit.message}\n` +
-          "Link: https://github.com/Morbotu/drone-PWS/commit/e3521f114440da9f8695895a23834e2c8e8338c0"
+          "Link: https://github.com/Morbotu/drone-PWS/commit/e3521f114440da9f8695895a23834e2c8e8338c0\n" +
+          "----------------------------\n"
       }
       message
         .setTitle("Push")

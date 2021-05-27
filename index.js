@@ -46,7 +46,7 @@ app.post("/payload", (req, res) => {
         description +=
           `Committer: ${commit.committer.name}\n` +
           `Message: ${commit.message}\n` +
-          "Link: https://github.com/Morbotu/drone-PWS/commit/e3521f114440da9f8695895a23834e2c8e8338c0\n" +
+          `Link: ${commit.url}\n` +
           "----------------------------\n"
       }
       message
